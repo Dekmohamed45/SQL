@@ -1,0 +1,35 @@
+--Create a grocery store database
+CREATE TABLE store_project (id INTEGER PRIMARY KEY, clothing text, aile integer, gender text, price integer);
+
+
+--Inserting information for each column
+INSERT INTO store_project VALUES
+(1, "Shirts", 10, "MALE", 10),
+(2, "Pants", 2, "MALE", 11),
+(3, "Shirts", 5, "MALE", 20),
+(4, "Jackets", 8, "FEMALE",  16),
+(5, "Sweaters and Hoodies", 4, "MALE", 25),
+(6, "Shoes", 1, "BOTH", 30),
+(7, "Skirts",6, "FEMALE",40);
+
+
+--Display results from the table to confirm
+SELECT * FROM store_project;
+
+
+--Display the database order by price
+SELECT clothing , price FROM store_project ORDER BY price desc ;
+
+
+--what is the avg price of items in the male section? 
+SELECT AVG(price) "avg MALE item price"
+FROM store_project
+where gender='MALE';
+
+
+
+--what are the most 5 expensive items?
+SELECT clothing,price
+FROM store_project
+ORDER BY price desc
+LIMIT 5;
