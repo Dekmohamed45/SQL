@@ -1,0 +1,71 @@
+--filter data to see results without any NULLs or strings that dont fulfill the req
+SELECT * FROM BIT_DB.customers
+WHERE length(order_id) = 6
+AND order_id <> 'Order ID';
+
+
+--Selecting the table for ease
+SELECT * FROM BIT_DB.JanSales;
+
+--How many orders were placed in January?
+SELECT COUNT(orderID)  FROM BIT_DB.JanSales
+WHERE length(orderID)= 6
+AND orderID <> 'Order ID'; 
+
+
+--How many of those orders were for an iPhone?
+SELECT COUNT(orderid)
+FROM BIT_DB.JanSales
+WHERE Product='iPhone'
+AND length(orderid) = 6 
+AND orderid <> 'Order ID';
+
+
+
+--Select the customer account numbers for all the orders that were placed in February.
+SELECT distinct acctnum
+FROM BIT_DB.customers Cus
+
+INNER JOIN BIT_DB.FebSales Feb
+ON Cus.Order_ID = Feb.orderID 
+WHERE length(orderID)= 6
+AND orderID <> 'Order ID';
+
+SELECT * FROM BIT_DB.FebSales;
+
+
+--Which product was the cheapest one sold in January, and what was the price?
+
+SELECT distinct product, MIN(price)
+FROM  BIT_DB.JanSales;
+
+---I can also do it this way as well
+
+SELECT distinct Product, price
+FROM BIT_DB.JanSales
+WHERE  price in (SELECT min(price) FROM BIT_DB.JanSales);
+
+
+--What is the total revenue for each product sold in January?
+SELECT product AS Production, Sum(Quantity)* price AS total_revenue
+
+FROM BIT_DB.JanSales
+
+WHERE length(orderID)= 6
+AND orderID <> 'Order ID'
+
+GROUP BY product;
+
+
+--Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
+
+SELECT Product, Location, Sum(Quantity), Sum(Quantity)* price AS total_revenue
+
+FROM BIT_DB.FebSales Feb
+
+WHERE LOCATION = '548 Lincoln St, Seattle, WA 98101'
+
+GROUP BY Product;
+
+
+--How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?
