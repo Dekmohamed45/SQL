@@ -1,0 +1,38 @@
+#In this SQL code, I'm querying a database that's holding Nexflix data to answer questions about the data. 
+
+
+
+--How many movie titles are there in the database? (movies only, not tv shows)
+SELECT COUNT(*) 
+from "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+WHERE type = 'Movie';
+
+
+
+--When was the most recent batch of tv shows and/or movies added to the database?
+SELECT MAX(date(date_added))
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info";
+
+
+
+--List all the movies and tv shows in alphabetical order
+SELECT title
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+ORDER BY title asc;
+
+
+
+--Who was the Director for the movie Bright Star?
+SELECT p.director, t.title
+FROM "CharlotteChaze/BreakIntoTech"."netflix_people" p
+LEFT JOIN "CharlotteChaze/BreakIntoTech"."netflix_titles_info" t
+ON p.show_id = t.show_id
+WHERE t.title = 'Bright Star';
+
+
+--What is the oldest movie in the database and what year was it made?
+Select title, release_year
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+WHERE type='Movie'
+ORDER BY release_year asc
+LIMIT 1;
