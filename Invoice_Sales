@@ -70,4 +70,4 @@ SELECT Sum(total) AS Total_sales_2019 FROM Invoices
 WHERE InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31';
 
 
---#10 Write a query that includes the purchased track name with each invoice line ID
+--#10 Writing a query that includes the purchased track name with each invoice line ID
