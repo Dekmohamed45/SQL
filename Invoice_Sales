@@ -1,0 +1,73 @@
+--Here is a DB that has employees, customers, invoices, etc data from a Music Sales group
+--I will be finding some information regarding the employees, customers, invoices, and etc.
+
+
+--#1 Show Customers (their full names, customer ID, and country) who are not in the US
+SELECT FirstName, CustomerID, Country from Customers
+WHERE Country <> 'USA';
+
+
+
+--#2 Showing only the Customers from Brazil
+SELECT * from Customers
+WHERE Country = 'Brazil';
+
+
+--#3 Showing the Invoices of customers who are from Brazil. The resulting table should show the customer's full name, Invoice ID, Date of the invoice, and billing country
+SELECT c.FirstName, c.Lastname, i.InvoiceID, I.InvoiceDate, I.BillingCountry
+FROM chinook.invoices I
+
+LEFT JOIN chinook.customers C
+ON i.customerid = C.CustomerID
+WHERE i.billingcountry = 'Brazil';
+
+
+--#4 Showing the Employees who are Sales Agents
+SELECT * FROM chinook.employees
+WHERE Title LIKE 'Sales%Agent';
+
+
+
+--#5 Find a unique/distinct list of billing countries from the Invoice table
+SELECT distinct billingCountry FROM Chinook.invoices;
+
+
+--#6 writing this query to show the invoices associated with each sales agent. The resulting table should include the Sales Agent's full name. This requires JOIN from 3 different tables
+SELECT * FROM Chinook.Employees;
+SELECT * FROM Customers;
+SELECT * FROM Invoices;
+
+SELECT e.FIRSTNAME, e.LastName, I.invoiceID
+FROM chinook.employees E
+
+JOIN chinook.customers C ON  c.SupportRepID = E.employeeID
+JOIN chinook.invoices I ON I.customerID = C.CustomerID;
+
+
+--# 7 Showing the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers
+SELECT * FROM Chinook.Employees;
+SELECT * FROM Customers;
+SELECT * FROM Invoices;
+
+SELECT C.FirstName, C.LastName, C.Country, E.FirstName, E.LastName,  I.Total
+FROM Chinook.invoices I
+JOIN Chinook.customers C  ON I.customerID = C.CustomerID
+JOIN Chinook.employees E  ON C.SupportRepID = E.EmployeeID;
+
+
+--#8 How many Invoices there in 2009
+SELECT Count(*) FROM chinook.invoices
+WHERE InvoiceDate LIKE '%2009%';
+
+-- Another way to do the answer the above question is using the "Between" command
+SELECT COUNT(*)
+FROM chinook.Invoices
+WHERE InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31';
+
+
+--#9 Total sales in 2009
+SELECT Sum(total) AS Total_sales_2019 FROM Invoices
+WHERE InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31';
+
+
+--#10 Write a query that includes the purchased track name with each invoice line ID
