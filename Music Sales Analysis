@@ -70,4 +70,34 @@ SELECT Sum(total) AS Total_sales_2019 FROM Invoices
 WHERE InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31';
 
 
---#10 Writing a query that includes the purchased track name with each invoice line ID
+--#10 show the purchased track name with each invoice line ID
+SELECT * FROM Invoice_items;
+SELECT * FROM Tracks;
+
+SELECT t.Name, IT.invoicelineID
+FROM Chinook.invoice_items IT
+JOIN chinook.tracks T   ON IT.TrackID = T.trackID;
+
+--#11 Providing query that includes the purchased track name AND artist name with each invoice line ID
+SELECT * FROM Invoice_items;
+SELECT * FROM Tracks;
+SELECT * FROM Albums;
+
+SELECT t.Name AS Track, IT.invoicelineID, ar.Name AS Artist_Name
+FROM Chinook.invoice_items IT
+LEFT JOIN chinook.tracks T   ON IT.TrackID = T.trackID
+INNER JOIN chinook.albums Al ON T.AlbumID = Al.AlbumID
+LEFT JOIN chinook.artists ar ON al.artistID = ar.ArtistID;
+
+--Providing a query that shows all the Tracks, and include the Album name, Media type, and Genre
+SELECT * FROM Tracks;
+SELECT * FROM Albums;
+SELECT * FROM media_types;
+SELECT * FROM Genres;
+
+SELECT t.name AS 'Track Name', A.title AS 'Ablum Title', m.Name AS 'Media Type', g.Name AS 'Genre'
+FROM chinook.tracks t
+JOIN Chinook.albums a on a.AlbumId = t.AlbumId
+JOIN chinook.media_types m on m.MediaTypeId = t.MediaTypeId
+JOIN Chinook.genres g on g.GenreId = t.GenreId;
+
