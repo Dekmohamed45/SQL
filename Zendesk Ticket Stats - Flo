@@ -1,0 +1,41 @@
+--Creating a New table in the Sample Database
+
+CREATE TABLE Zendesk (
+ID integer PRIMARY Key,
+Assignee_Name text,
+Solved_Tickets INTEGER,
+First_Reply_Time decimal,
+Requester_Wait_Time decimal,
+Full_resolution_time integer,
+Satisfaction_score decimal,
+One_touch decimal
+);
+
+
+--displaying table to confirm results
+SELECT * FROM Chinook.Zendesk;
+
+--which agent solved the most tickets?
+SELECT Assignee_Name, MAX(Solved_Tickets) FROM Chinook.Zendesk;
+
+--which agent solved the least ticket?
+SELECT Assignee_Name, Min(Solved_Tickets) FROM Chinook.Zendesk;
+
+
+--the average first reply time
+SELECT avg(First_reply_Time) AS Avg_FRT FROM Chinook.Zendesk;
+
+--The average satisfaction score
+SELECT avg(satisfaction_score ) AS AVG_Score FROM chinook.zendesk;
+
+
+
+--display a table to show which agents met the First Reply Time requirements(FRT = First Reply Time)
+SELECT Assignee_name, First_Reply_time,
+ AVG(First_reply_time)  OVER () as "Average_FRT",
+CASE
+    WHEN First_reply_Time >  AVG(First_reply_time)  OVER () THEN 'Not meeting FTR'
+    WHEN First_reply_Time <  AVG(First_reply_time)  OVER () THEN 'Meets FTR'
+    END AS FRT_Ruling
+FROM Chinook.Zendesk
+GROUP BY ID;
