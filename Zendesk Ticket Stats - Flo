@@ -38,4 +38,4 @@ CASE
     WHEN First_reply_Time <  AVG(First_reply_time)  OVER () THEN 'Meets FTR'
     END AS FRT_Ruling
 FROM Chinook.Zendesk
-GROUP BY ID;
+GROUP BY ID; 
