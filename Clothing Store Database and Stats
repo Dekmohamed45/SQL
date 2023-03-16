@@ -1,5 +1,5 @@
 --Create a grocery store database
-```CREATE TABLE store_project (id INTEGER PRIMARY KEY, clothing text, aile integer, gender text, price integer);
+```CREATE TABLE``` store_project (id INTEGER PRIMARY KEY, clothing text, aile integer, gender text, price integer);
 
 
 --Inserting information for each column
